@@ -9,12 +9,18 @@ const getHeaders = () => {
 };
 
 export const login = async (username) => {
-  const response = await fetch(`${API_URL}/auth/token`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username })
-  });
-  return response.json();
+  try {
+    const response = await fetch(`${API_URL}/auth/token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username })
+    });
+    if (!response.ok) throw new Error('Login failed');
+    return response.json();
+  } catch (error) {
+    console.error('Login error:', error);
+    throw error;
+  }
 };
 
 export const getProducts = async () => {

@@ -15,7 +15,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/API-Gateway-with-Microservices">
       {token && <Navbar />}
       <div className="container mt-4">
         <Routes>

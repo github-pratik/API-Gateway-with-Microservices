@@ -7,9 +7,12 @@ function Login({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log('Attempting login with:', username);
       const { token } = await login(username);
+      console.log('Login successful, token:', token);
       onLogin(token);
     } catch (error) {
+      console.error('Login failed:', error);
       alert('Login failed');
     }
   };
