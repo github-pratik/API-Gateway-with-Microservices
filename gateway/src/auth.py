@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 auth_bp = Blueprint('auth', __name__)
 
-SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'your-secret-key')
+JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', '1f7caaa25723f45595796ce84a234b2a9771c4369913b9b468149c387f1a36ed')
 
 def require_auth(f):
     @wraps(f)
@@ -18,7 +18,7 @@ def require_auth(f):
         
         try:
             token = auth_header.split(' ')[1]
-            payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+            payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=['HS256'])
             request.user = payload
         except (jwt.JWTError, IndexError):
             return jsonify({'error': 'Invalid token'}), 401
@@ -38,7 +38,7 @@ def get_token():
             'sub': data['username'],
             'exp': datetime.utcnow() + timedelta(hours=24)
         },
-        SECRET_KEY,
+        JWT_SECRET_KEY,
         algorithm='HS256'
     )
     

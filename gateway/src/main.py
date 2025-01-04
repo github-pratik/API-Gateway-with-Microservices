@@ -10,9 +10,9 @@ app.register_blueprint(auth_bp)
 
 # Service registry (in production, use service discovery)
 SERVICES = {
-    'users': 'http://user-service:5001',
-    'orders': 'http://order-service:5002',
-    'products': 'http://product-service:5003'
+    'users': os.getenv('USER_SERVICE_URL', 'http://user-service:5001'),
+    'orders': os.getenv('ORDER_SERVICE_URL', 'http://order-service:5002'),
+    'products': os.getenv('PRODUCT_SERVICE_URL', 'http://product-service:5003')
 }
 
 @app.route('/<service>/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE'])
