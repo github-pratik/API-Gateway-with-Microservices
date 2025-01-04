@@ -13,9 +13,9 @@ export const login = async (username, password) => {
     const response = await fetch(`${API_URL}/auth/token`, {
       method: 'POST',
       headers: { 
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
-      mode: 'no-cors',
       body: JSON.stringify({ username, password })
     });
     
@@ -35,7 +35,8 @@ export const register = async (username, password, email) => {
     const response = await fetch(`${API_URL}/auth/register`, {
       method: 'POST',
       headers: { 
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify({ username, password, email })
     });
