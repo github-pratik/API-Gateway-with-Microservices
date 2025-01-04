@@ -9,20 +9,12 @@
   "routes": [
     {
       "src": "/(.*)",
-      "methods": ["OPTIONS"],
+      "dest": "/api/index.py",
       "headers": {
-        "Access-Control-Allow-Origin": "https://github-pratik.github.io",
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Max-Age": "86400"
-      },
-      "status": 200,
-      "continue": true
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.py"
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
     }
   ],
   "env": {

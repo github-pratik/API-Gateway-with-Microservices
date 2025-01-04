@@ -37,7 +37,6 @@ export const register = async (username, password, email) => {
       headers: { 
         'Content-Type': 'application/json'
       },
-      mode: 'cors',
       body: JSON.stringify({ username, password, email })
     });
     
