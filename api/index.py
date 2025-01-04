@@ -7,27 +7,21 @@ from functools import wraps
 import bcrypt  # Add password hashing
 
 app = Flask(__name__)
-CORS(app, resources={
-    r"/*": {
-        "origins": ["https://github-pratik.github.io"],
-        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"],
-        "expose_headers": ["Access-Control-Allow-Origin"],
-        "supports_credentials": True,
-        "max_age": 86400
-    }
-})
+CORS(app, 
+     origins=["https://github-pratik.github.io"],
+     allow_headers=["Content-Type", "Authorization"],
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+     supports_credentials=True)
 
 @app.before_request
 def handle_preflight():
     if request.method == "OPTIONS":
         response = make_response()
-        response.headers.add('Access-Control-Allow-Origin', 'https://github-pratik.github.io')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-        response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-        response.headers.add('Access-Control-Allow-Credentials', 'true')
-        response.headers.add('Access-Control-Max-Age', '86400')
-        return response, 200  # Return 200 for OPTIONS requests
+        response.headers.add("Access-Control-Allow-Origin", "https://github-pratik.github.io")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        response.headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        response.headers.add("Access-Control-Allow-Credentials", "true")
+        return response, 200
 
 @app.after_request
 def after_request(response):
