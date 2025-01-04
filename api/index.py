@@ -6,13 +6,11 @@ from datetime import datetime, timedelta
 import bcrypt
 
 app = Flask(__name__)
-CORS(app, resources={
-    r"/*": {
-        "origins": "*",
-        "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-        "allow_headers": ["X-Requested-With", "Content-Type", "Accept", "Authorization"]
-    }
-})
+CORS(app, 
+     origins=["https://github-pratik.github.io"],
+     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+     allow_headers=["Content-Type", "Authorization"],
+     supports_credentials=True)
 
 @app.before_request
 def handle_preflight():

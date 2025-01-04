@@ -1,4 +1,7 @@
-const API_URL = 'https://apigatewaywithmicroservice-ikm8168fy-github-pratiks-projects.vercel.app';
+const TARGET_URL = 'https://apigatewaywithmicroservice-ikm8168fy-github-pratiks-projects.vercel.app';
+const API_URL = process.env.NODE_ENV === 'development' 
+  ? '/api'  // Use proxy in development
+  : 'https://cors-anywhere.herokuapp.com/' + TARGET_URL;  // Use CORS proxy in production
 
 const getHeaders = () => {
   const token = localStorage.getItem('token');
