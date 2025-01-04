@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Products from './components/Products';
 import Orders from './components/Orders';
@@ -15,7 +15,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter basename="/API-Gateway-with-Microservices">
+    <Router>
       {token && <Navbar />}
       <div className="container mt-4">
         <Routes>
@@ -26,7 +26,7 @@ function App() {
           <Route path="/" element={<Navigate to="/login" />} />
         </Routes>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
