@@ -31,6 +31,8 @@ This project implements a microservices architecture with an API Gateway that ha
 
 ![Alt Text](https://github.com/github-pratik/API-Gateway-with-Microservices/blob/main/images/archit_micro.png)
 
+![Alt Text](https://github.com/github-pratik/API-Gateway-with-Microservices/blob/main/images/flow_micro.png)
+
 
 
 ## Key Features
