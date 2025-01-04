@@ -1,4 +1,4 @@
-const API_URL = 'https://apigatewaywithmicroservice-8wjdjg5pa-github-pratiks-projects.vercel.app;
+const API_URL = 'https://apigatewaywithmicroservice-8wjdjg5pa-github-pratiks-projects.vercel.app';
 
 const getHeaders = () => {
   const token = localStorage.getItem('token');
