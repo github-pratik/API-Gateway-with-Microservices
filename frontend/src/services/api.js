@@ -36,9 +36,9 @@ export const register = async (username, password, email) => {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
       },
-      credentials: 'include',
       body: JSON.stringify({ username, password, email })
     });
     

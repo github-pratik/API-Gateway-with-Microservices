@@ -42,5 +42,6 @@
   "homepage": "https://github-pratik.github.io/API-Gateway-with-Microservices",
   "devDependencies": {
     "gh-pages": "^6.3.0"
-  }
+  },
+  "proxy": "https://apigatewaywithmicroservice-g4z7bzpsy-github-pratiks-projects.vercel.app"
 }
