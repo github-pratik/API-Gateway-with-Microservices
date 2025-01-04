@@ -1,0 +1,41 @@
+services:
+  # API Gateway
+  - type: web
+    name: api-gateway
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: cd gateway && gunicorn --bind 0.0.0.0:$PORT src.main:app
+    envVars:
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: cache
+          property: connectionString
+
+  # User Service
+  - type: web
+    name: user-service
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: cd services/user_service && gunicorn --bind 0.0.0.0:$PORT src.main:app
+
+  # Order Service
+  - type: web
+    name: order-service
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: cd services/order_service && gunicorn --bind 0.0.0.0:$PORT src.main:app
+
+  # Product Service
+  - type: web
+    name: product-service
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: cd services/product_service && gunicorn --bind 0.0.0.0:$PORT src.main:app
+
+  # Redis instance
+  - type: redis
+    name: cache
+    ipAllowList: [] 
