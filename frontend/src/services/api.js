@@ -16,6 +16,7 @@ export const login = async (username, password) => {
         'Content-Type': 'application/json'
       },
       mode: 'cors',
+      credentials: 'same-origin',
       body: JSON.stringify({ username, password })
     });
     
