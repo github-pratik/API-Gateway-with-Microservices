@@ -32,12 +32,26 @@ export const login = async (username, password) => {
 };
 
 export const register = async (username, password, email) => {
-  const response = await fetch(`${API_URL}/auth/register`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password, email })
-  });
-  return response.json();
+  try {
+    const response = await fetch(`${API_URL}/auth/register`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      mode: 'cors',
+      credentials: 'same-origin',
+      body: JSON.stringify({ username, password, email })
+    });
+    
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || 'Registration failed');
+    }
+    return data;
+  } catch (error) {
+    console.error('Registration error:', error);
+    throw error;
+  }
 };
 
 export const getProducts = async () => {

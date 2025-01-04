@@ -8,13 +8,27 @@
   ],
   "routes": [
     {
+      "src": "/auth/(.*)",
+      "methods": ["OPTIONS"],
+      "dest": "/api/index.py",
+      "headers": {
+        "Access-Control-Allow-Origin": "https://github-pratik.github.io",
+        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Max-Age": "86400"
+      },
+      "status": 200
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/index.py",
       "headers": {
         "Access-Control-Allow-Origin": "https://github-pratik.github.io",
         "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Access-Control-Allow-Credentials": "true"
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Max-Age": "86400"
       }
     }
   ],
