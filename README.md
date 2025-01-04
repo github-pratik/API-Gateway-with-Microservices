@@ -1,168 +1,151 @@
-#API Gateway with Microservices
+# Microservices API Gateway Project
 
-A scalable microservices architecture d
-demonstrating an e-commerce backend with API Gateway pattern, featuring user management, product catalog, and order processing.
+## Problem Statement
+In modern web applications, managing multiple services, handling authentication, rate limiting, and monitoring can become complex. This project implements an API Gateway pattern to solve these challenges by providing a single entry point for multiple microservices.
 
-##Project Structure
+## Project Overview
+This project implements a microservices architecture with an API Gateway that handles:
+- Authentication and Authorization
+- Rate Limiting
+- Service Discovery
+- Request Routing
+- Monitoring and Telemetry
 
+### Architecture
 ```
-microservices-demo/
-├── docker-compose.yml
-├── requirements.txt
-├── gateway/
-│   ├── Dockerfile
-│   └── src/
-│       ├── main.py
-│       ├── auth.py
-│       └── rate_limiter.py
+├── gateway/                  # API Gateway Service
+│   ├── src/
+│   │   ├── main.py          # Main gateway application
+│   │   ├── auth.py          # Authentication handling
+│   │   ├── rate_limiter.py  # Rate limiting implementation
+│   │   └── telemetry.py     # Service monitoring
+│   ├── requirements.txt
+│   └── Dockerfile
 ├── services/
-│   ├── user_service/
-│   ├── order_service/
-│   └── product_service/
-└── frontend/
-    ├── src/
-    ├── public/
-    └── package.json
+│   ├── user_service/        # User Management Service
+│   ├── order_service/       # Order Management Service
+│   └── product_service/     # Product Management Service
+├── docker-compose.yml       # Service orchestration
+└── .env                     # Environment configuration
 ```
 
-## Architecture Overview 
+## Key Features
+1. **API Gateway**
+   - Central entry point for all client requests
+   - Request routing to appropriate services
+   - Authentication and authorization
+   - Rate limiting to prevent abuse
 
-## Features
+2. **Microservices**
+   - User Service: Handles user registration and authentication
+   - Order Service: Manages order creation and tracking
+   - Product Service: Handles product inventory and details
 
-- **API Gateway**
-  - Centralized authentication using JWT
-  - Rate limiting with Redis
-  - Request routing to microservices
+3. **Monitoring**
+   - Request tracking
+   - Service health checks
+   - Performance metrics
 
-- **User Service**
-  - User registration and management
-  - Profile data storage
-  - Authentication endpoints
+## Technologies Used
+- Python/Flask for microservices
+- Redis for rate limiting and caching
+- Docker for containerization
+- JWT for authentication
+- Environment variables for configuration
 
-- **Product Service**
-  - Product catalog management
-  - Inventory tracking
-  - Product search and filtering
+## Learning Outcomes
+1. **Microservices Architecture**
+   - Service decomposition
+   - Inter-service communication
+   - Service discovery
 
-- **Order Service**
-  - Order processing
-  - Order history
-  - Basic inventory management
+2. **API Gateway Pattern**
+   - Request routing
+   - Rate limiting implementation
+   - Authentication middleware
 
-- **Frontend**
-  - React-based SPA
-  - Bootstrap UI components
-  - Responsive design
+3. **Docker & Containerization**
+   - Multi-container applications
+   - Service orchestration
+   - Environment configuration
 
-## Tech Stack
+4. **Security**
+   - JWT authentication
+   - Rate limiting
+   - Environment variable management
 
-- **Backend**
-  - Python 3.9
-  - Flask
-  - Redis
-  - SQLite (Development)
-  - PostgreSQL (Production)
+5. **Monitoring & Telemetry**
+   - Health checks
+   - Request tracking
+   - Performance monitoring
 
-- **Frontend**
-  - React 18
-  - React Router v6
-  - Bootstrap 5
+## Setup and Installation
+1. Clone the repository
+```bash
+git clone <repository-url>
+```
 
-- **DevOps**
-  - Docker
-  - Docker Compose
-  - Render.com deployment
+2. Create .env file
+```bash
+cp .env.example .env
+```
 
-## Getting Started
+3. Build and run with Docker Compose
+```bash
+docker-compose up --build
+```
 
-### Prerequisites
+## API Documentation
+### User Service
+```
+POST /users/register
+POST /users/login
+GET /users/profile
+```
 
-- Python 3.9+
-- Node.js 16+
-- Docker and Docker Compose
-- Redis 
+### Product Service
+```
+GET /products
+POST /products
+GET /products/{id}
+```
 
-2. Start the services using Docker Compose: 
+### Order Service
+```
+GET /orders
+POST /orders
+GET /orders/{id}
+```
+
+## Testing
+Use Postman or curl to test the endpoints:
 
 ```bash
-docker compose up -d
+# Health Check
+curl http://localhost:5001/health
+
+# Register User
+curl -X POST http://localhost:5001/users/register \
+-H "Content-Type: application/json" \
+-d '{
+    "username": "testuser",
+    "password": "password123"
+}'
 ```
 
-3. Install frontend dependencies: 
-
-```bash
-cd frontend
-npm install
-```
-
-4. Start the frontend development server: 
-
-```bash
-npm start
-```
-
-5. Access the services:
-- Frontend: http://localhost:3000
-- API Gateway: http://localhost:5001
-- User Service: http://localhost:5002
-- Order Service: http://localhost:5003
-- Product Service: http://localhost:5004
-
-
-### API Testing
-
-Get a JWT token:
-
-```bash
-curl -X POST http://localhost:5001/auth/token \
-  -H "Content-Type: application/json" \
-  -d '{"username": "test_user"}'
-```
-
-Create a user:
-```bash
-curl -X POST http://localhost:5001/users/users \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-    "username": "test_user",
-    "email": "test@example.com"
-  }'
-```
-
-## Deployment
-
-The project is configured for deployment on Render.com:
-
-1. Backend services are deployed as Web Services
-2. Redis is provided by Render.com
-3. Frontend is deployed as a Static Site
-
-## Environment Variables
-
-```env
-JWT_SECRET_KEY=your_secret_key
-REDIS_URL=redis://localhost:6379
-REACT_APP_API_URL=http://localhost:5001
-```
+## Future Improvements
+1. Add service discovery
+2. Implement circuit breakers
+3. Add logging aggregation
+4. Implement caching
+5. Add API documentation with Swagger
 
 ## Contributing
-
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## License
-
-Academic Purposes Only
-
-## Acknowledgments
-
-- @Flask documentation
-- @React documentation
-- @Microservices architecture patterns
+2. Create a feature branch
+3. Commit changes
+4. Push to the branch
+5. Create a Pull Request
 
 
 

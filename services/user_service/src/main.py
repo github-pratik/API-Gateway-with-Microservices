@@ -1,86 +1,53 @@
 from flask import Flask, request, jsonify
-from datetime import datetime
-import sqlite3
-import os
+import bcrypt
 
 app = Flask(__name__)
 
-# Add this constant at the top
-DB_PATH = 'data/users.db'
+# In-memory storage for users
+users = []
 
-with app.app_context():
-    def init_db():
-        # Create data directory if it doesn't exist
-        os.makedirs('data', exist_ok=True)
-        conn = sqlite3.connect(DB_PATH)
-        c = conn.cursor()
-        c.execute('''
-            CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT UNIQUE NOT NULL,
-                email TEXT UNIQUE NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        ''')
-        conn.commit()
-        conn.close()
-    
-    init_db()
+@app.route('/health', methods=['GET'])
+def health():
+    return jsonify({"status": "healthy"})
 
-@app.route('/users', methods=['GET'])
-def get_users():
-    conn = sqlite3.connect(DB_PATH)  # Updated
-    c = conn.cursor()
-    c.execute('SELECT * FROM users')
-    users = [{'id': row[0], 'username': row[1], 'email': row[2], 'created_at': row[3]} 
-             for row in c.fetchall()]
-    conn.close()
-    return jsonify(users)
-
-@app.route('/users/<int:user_id>', methods=['GET'])
-def get_user(user_id):
-    conn = sqlite3.connect(DB_PATH)  # Updated
-    c = conn.cursor()
-    c.execute('SELECT * FROM users WHERE id = ?', (user_id,))
-    user = c.fetchone()
-    conn.close()
-    
-    if user is None:
-        return jsonify({'error': 'User not found'}), 404
-        
-    return jsonify({
-        'id': user[0],
-        'username': user[1],
-        'email': user[2],
-        'created_at': user[3]
-    })
-
-@app.route('/users', methods=['POST'])
-def create_user():
+@app.route('/register', methods=['POST'])
+def register():
     data = request.get_json()
     
-    if not data or 'username' not in data or 'email' not in data:
-        return jsonify({'error': 'Missing required fields'}), 400
+    if not data or 'username' not in data or 'password' not in data:
+        return jsonify({'error': 'Username and password required'}), 400
         
-    try:
-        conn = sqlite3.connect(DB_PATH)  # Updated
-        c = conn.cursor()
-        c.execute(
-            'INSERT INTO users (username, email) VALUES (?, ?)',
-            (data['username'], data['email'])
-        )
-        conn.commit()
-        user_id = c.lastrowid
-        conn.close()
+    # Check if user exists
+    if any(u['username'] == data['username'] for u in users):
+        return jsonify({'error': 'Username already exists'}), 409
         
-        return jsonify({
-            'id': user_id,
-            'username': data['username'],
-            'email': data['email']
-        }), 201
+    # Hash password
+    hashed = bcrypt.hashpw(data['password'].encode('utf-8'), bcrypt.gensalt())
+    
+    user = {
+        'id': len(users) + 1,
+        'username': data['username'],
+        'password': hashed,
+        'email': data.get('email', '')
+    }
+    users.append(user)
+    return jsonify({'message': 'User created successfully'}), 201
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    
+    if not data or 'username' not in data or 'password' not in data:
+        return jsonify({'error': 'Username and password required'}), 400
+    
+    user = next((u for u in users if u['username'] == data['username']), None)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
         
-    except sqlite3.IntegrityError:
-        return jsonify({'error': 'Username or email already exists'}), 409
+    if bcrypt.checkpw(data['password'].encode('utf-8'), user['password']):
+        return jsonify({'message': 'Login successful', 'user_id': user['id']}), 200
+    
+    return jsonify({'error': 'Invalid password'}), 401
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001) 

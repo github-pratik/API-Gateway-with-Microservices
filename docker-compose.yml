@@ -1,60 +1,47 @@
+version: '3.8'
+
 services:
   api-gateway:
     build: 
       context: ./gateway
       dockerfile: Dockerfile
+    container_name: api-gateway
     ports:
       - "5001:5000"
-    environment:
-      - JWT_SECRET_KEY=1f7caaa25723f45595796ce84a234b2a9771c4369913b9b468149c387f1a36ed
+    env_file:
+      - .env
     depends_on:
       - redis
-      - order-service
       - user-service
+      - order-service
       - product-service
 
   user-service:
     build: 
       context: ./services/user_service
       dockerfile: Dockerfile
+    container_name: user-service
     ports:
       - "5002:5001"
-    volumes:
-      - user_data:/app/data
 
   order-service:
     build: 
       context: ./services/order_service
       dockerfile: Dockerfile
+    container_name: order-service
     ports:
       - "5003:5002"
-    volumes:
-      - order_data:/app/data
 
   product-service:
     build: 
       context: ./services/product_service
       dockerfile: Dockerfile
+    container_name: product-service
     ports:
       - "5004:5003"
-    volumes:
-      - product_data:/app/data
 
   redis:
     image: redis:latest
+    container_name: redis
     ports:
-      - "6380:6379"
-
-  frontend:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    depends_on:
-      - api-gateway
-
-volumes:
-  user_data:
-  order_data:
-  product_data: 
+      - "6380:6379" 
