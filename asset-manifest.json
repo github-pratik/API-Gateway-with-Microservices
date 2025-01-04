@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/API-Gateway-with-Microservices/static/js/main.bd9d8ca2.chunk.js",
-    "main.js.map": "/API-Gateway-with-Microservices/static/js/main.bd9d8ca2.chunk.js.map",
+    "main.js": "/API-Gateway-with-Microservices/static/js/main.ce96322f.chunk.js",
+    "main.js.map": "/API-Gateway-with-Microservices/static/js/main.ce96322f.chunk.js.map",
     "runtime~main.js": "/API-Gateway-with-Microservices/static/js/runtime~main.39b83f00.js",
     "runtime~main.js.map": "/API-Gateway-with-Microservices/static/js/runtime~main.39b83f00.js.map",
     "static/css/2.dbb74888.chunk.css": "/API-Gateway-with-Microservices/static/css/2.dbb74888.chunk.css",
     "static/js/2.a8dcf01b.chunk.js": "/API-Gateway-with-Microservices/static/js/2.a8dcf01b.chunk.js",
     "static/js/2.a8dcf01b.chunk.js.map": "/API-Gateway-with-Microservices/static/js/2.a8dcf01b.chunk.js.map",
     "index.html": "/API-Gateway-with-Microservices/index.html",
-    "precache-manifest.096e4f4f38b0c8282b8f58cfdacec78c.js": "/API-Gateway-with-Microservices/precache-manifest.096e4f4f38b0c8282b8f58cfdacec78c.js",
+    "precache-manifest.ddc9043d584033406df3f4d3ce22fb2d.js": "/API-Gateway-with-Microservices/precache-manifest.ddc9043d584033406df3f4d3ce22fb2d.js",
     "service-worker.js": "/API-Gateway-with-Microservices/service-worker.js",
     "static/css/2.dbb74888.chunk.css.map": "/API-Gateway-with-Microservices/static/css/2.dbb74888.chunk.css.map"
   }
