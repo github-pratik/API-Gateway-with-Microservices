@@ -1,4 +1,4 @@
-const API_URL = 'https://apigatewaywithmicroservice-g4z7bzpsy-github-pratiks-projects.vercel.app';
+const API_URL = 'https://apigatewaywithmicroservice-2ckhsqjzm-github-pratiks-projects.vercel.app';
 
 const getHeaders = () => {
   const token = localStorage.getItem('token');
@@ -38,6 +38,7 @@ export const register = async (username, password, email) => {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify({ username, password, email })
     });
     
