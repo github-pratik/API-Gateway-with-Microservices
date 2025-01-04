@@ -29,6 +29,10 @@ This project implements a microservices architecture with an API Gateway that ha
 └── .env                     # Environment configuration
 ```
 
+![Alt Text](https://github.com/github-pratik/API-Gateway-with-Microservices/blob/main/images/archit_micro.png)
+
+
+
 ## Key Features
 1. **API Gateway**
    - Central entry point for all client requests
