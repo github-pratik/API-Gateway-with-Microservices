@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a298c5151f30a9f37ef2bad331090ed9",
+    "revision": "59d5fff3f86456a8c36df3fe2a1b3f4d",
     "url": "/API-Gateway-with-Microservices/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/API-Gateway-with-Microservices/static/js/2.ca91a478.chunk.js"
   },
   {
-    "revision": "b768dac1dc8e2a391959",
-    "url": "/API-Gateway-with-Microservices/static/js/main.7319c580.chunk.js"
+    "revision": "81b69f07de61e111153a",
+    "url": "/API-Gateway-with-Microservices/static/js/main.8f36c4d9.chunk.js"
   },
   {
     "revision": "5a6476b85761fc556e05",
