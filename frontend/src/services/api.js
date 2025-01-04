@@ -1,4 +1,4 @@
-const API_URL = 'https://apigatewaywithmicroservice-7rosn6upq-github-pratiks-projects.vercel.app';
+const API_URL = 'https://apigatewaywithmicroservice.vercel.app';
 
 const getHeaders = () => {
   const token = localStorage.getItem('token');
@@ -8,19 +8,35 @@ const getHeaders = () => {
   };
 };
 
-export const login = async (username) => {
+export const login = async (username, password) => {
   try {
     const response = await fetch(`${API_URL}/auth/token`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username })
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      mode: 'cors',
+      body: JSON.stringify({ username, password })
     });
-    if (!response.ok) throw new Error('Login failed');
-    return response.json();
+    
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || 'Login failed');
+    }
+    return data;
   } catch (error) {
     console.error('Login error:', error);
     throw error;
   }
+};
+
+export const register = async (username, password, email) => {
+  const response = await fetch(`${API_URL}/auth/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password, email })
+  });
+  return response.json();
 };
 
 export const getProducts = async () => {
