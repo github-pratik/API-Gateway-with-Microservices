@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/API-Gateway-with-Microservices/static/js/main.8f36c4d9.chunk.js",
-    "main.js.map": "/API-Gateway-with-Microservices/static/js/main.8f36c4d9.chunk.js.map",
+    "main.js": "/API-Gateway-with-Microservices/static/js/main.ee4c64a7.chunk.js",
+    "main.js.map": "/API-Gateway-with-Microservices/static/js/main.ee4c64a7.chunk.js.map",
     "runtime~main.js": "/API-Gateway-with-Microservices/static/js/runtime~main.39b83f00.js",
     "runtime~main.js.map": "/API-Gateway-with-Microservices/static/js/runtime~main.39b83f00.js.map",
     "static/css/2.dbb74888.chunk.css": "/API-Gateway-with-Microservices/static/css/2.dbb74888.chunk.css",
-    "static/js/2.ca91a478.chunk.js": "/API-Gateway-with-Microservices/static/js/2.ca91a478.chunk.js",
-    "static/js/2.ca91a478.chunk.js.map": "/API-Gateway-with-Microservices/static/js/2.ca91a478.chunk.js.map",
+    "static/js/2.a8dcf01b.chunk.js": "/API-Gateway-with-Microservices/static/js/2.a8dcf01b.chunk.js",
+    "static/js/2.a8dcf01b.chunk.js.map": "/API-Gateway-with-Microservices/static/js/2.a8dcf01b.chunk.js.map",
     "index.html": "/API-Gateway-with-Microservices/index.html",
-    "precache-manifest.dde783bcf98e94df7bb2c559c95bddc7.js": "/API-Gateway-with-Microservices/precache-manifest.dde783bcf98e94df7bb2c559c95bddc7.js",
+    "precache-manifest.d058bc0de8f42d19219cf7fb25bfacdf.js": "/API-Gateway-with-Microservices/precache-manifest.d058bc0de8f42d19219cf7fb25bfacdf.js",
     "service-worker.js": "/API-Gateway-with-Microservices/service-worker.js",
     "static/css/2.dbb74888.chunk.css.map": "/API-Gateway-with-Microservices/static/css/2.dbb74888.chunk.css.map"
   }
