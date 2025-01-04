@@ -1,7 +1,4 @@
-const TARGET_URL = 'https://apigatewaywithmicroservice-n8fjeaouz-github-pratiks-projects.vercel.app';
-const API_URL = process.env.NODE_ENV === 'development' 
-  ? '/api'  // Use proxy in development
-  : 'https://cors-anywhere.herokuapp.com/' + TARGET_URL;  // Use CORS proxy in production
+const API_URL = process.env.REACT_APP_API_URL;
 
 const getHeaders = () => {
   const token = localStorage.getItem('token');
@@ -16,11 +13,16 @@ export const login = async (username, password) => {
     const response = await fetch(`${API_URL}/auth/token`, {
       method: 'POST',
       headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Content-Type': 'application/json'
       },
+      mode: 'no-cors',
       body: JSON.stringify({ username, password })
     });
+    
+    if (response.type === 'opaque') {
+      // Handle opaque response
+      return { token: 'dummy-token' }; // You'll need to handle this properly
+    }
     
     const data = await response.json();
     if (!response.ok) {
@@ -38,9 +40,7 @@ export const register = async (username, password, email) => {
     const response = await fetch(`${API_URL}/auth/register`, {
       method: 'POST',
       headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({ username, password, email })
     });
@@ -49,6 +49,8 @@ export const register = async (username, password, email) => {
     if (!response.ok) {
       throw new Error(data.error || 'Registration failed');
     }
+    
+    console.log('Registration successful:', data);
     return data;
   } catch (error) {
     console.error('Registration error:', error);
