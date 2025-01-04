@@ -1,24 +1,51 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-import os
-import jwt
-from datetime import datetime, timedelta
 import bcrypt
 
 app = Flask(__name__)
-CORS(app, 
-     origins=["https://github-pratik.github.io"],
-     methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-     allow_headers=["Content-Type", "Authorization"],
-     supports_credentials=True)
+CORS(app, resources={
+    r"/*": {
+        "origins": "*",
+        "methods": "*",
+        "allow_headers": "*"
+    }
+})
 
-@app.before_request
-def handle_preflight():
-    if request.method == "OPTIONS":
-        response = make_response()
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        response.headers.add("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Accept, Authorization")
-        response.headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS")
-        return response, 200
+# In-memory storage
+users = []
 
-# Rest of your code... 
+@app.route('/auth/register', methods=['POST'])
+def register():
+    try:
+        data = request.get_json()
+        print("Received registration data:", {
+            **data,
+            'password': '***hidden***'  # Don't log actual password
+        })
+        
+        if not data or 'username' not in data or 'password' not in data:
+            return jsonify({'error': 'Username and password required'}), 400
+            
+        # Check if user exists
+        if any(u['username'] == data['username'] for u in users):
+            return jsonify({'error': 'Username already exists'}), 409
+            
+        # Hash password
+        hashed = bcrypt.hashpw(data['password'].encode('utf-8'), bcrypt.gensalt())
+        
+        user = {
+            'id': len(users) + 1,
+            'username': data['username'],
+            'password': hashed,
+            'email': data.get('email', '')
+        }
+        users.append(user)
+        print("User registered successfully:", {
+            'id': user['id'],
+            'username': user['username'],
+            'email': user['email']
+        })
+        return jsonify({'message': 'User created successfully'}), 201
+    except Exception as e:
+        print("Registration error:", str(e))
+        return jsonify({'error': str(e)}), 500 
