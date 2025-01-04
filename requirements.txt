@@ -1,9 +1,6 @@
+flask-cors==4.0.0
+gunicorn==20.1.0
 flask==3.0.2
 redis==5.0.1
-prometheus-client==0.20.0
-python-jose==3.3.0
 requests==2.31.0
-python-dotenv==1.0.1
-gunicorn==20.1.0
-psycopg2-binary==2.9.5
-whitenoise==6.2.0  # for serving static files 
+python-jose==3.3.0 

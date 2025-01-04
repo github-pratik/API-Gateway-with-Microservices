@@ -4,8 +4,16 @@ from rate_limiter import rate_limit
 from telemetry import track_request
 import requests
 import os
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={
+    r"/*": {
+        "origins": ["https://yourusername.github.io", "http://localhost:3000"],
+        "methods": ["GET", "POST", "PUT", "DELETE"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
 app.register_blueprint(auth_bp)
 
 # Service registry (in production, use service discovery)
