@@ -29,9 +29,9 @@ This project implements a microservices architecture with an API Gateway that ha
 └── .env                     # Environment configuration
 ```
 
-<img src = "https://github.com/github-pratik/API-Gateway-with-Microservices/blob/main/images/archit_micro.png" alt="Architecture Diagram" width="50%"/>
+<img src = "https://github.com/github-pratik/API-Gateway-with-Microservices/blob/main/images/archit_micro.png" alt="Architecture Diagram" width="70%"/>
 
-<img src = "https://github.com/github-pratik/API-Gateway-with-Microservices/blob/main/images/flow_micro.png" alt="Flow Diagram" width="50%"/>
+<img src = "https://github.com/github-pratik/API-Gateway-with-Microservices/blob/main/images/flow_micro.png" alt="Flow Diagram" width="70%"/>
 
 
 
